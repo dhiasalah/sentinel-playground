@@ -9,7 +9,7 @@ app = Flask(__name__)
 @app.route("/ping")
 def ping():
     host = request.args.get("host", "")
-    return subprocess.check_output(f"ping -c 1 {host}", shell=True, text=True)
+    return subprocess.check_output(["ping", "-c", "1", host], text=True)
 
 
 @app.route("/preview")
