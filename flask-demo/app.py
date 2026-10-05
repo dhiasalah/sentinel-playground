@@ -2,6 +2,7 @@
 import hashlib
 import pickle
 import sqlite3
+import bcrypt
 import subprocess
 
 from flask import Flask, request
@@ -30,7 +31,9 @@ def load():
 
 
 def hash_password(password):
-    return hashlib.md5(password.encode()).hexdigest()
+    salt = bcrypt.gensalt()
+    hashed = bcrypt.hashpw(password.encode(), salt)
+    return hashed.decode()
 
 
 if __name__ == "__main__":
